@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@layer base {
+    nav a {
+        @apply p-2 rounded hover:bg-indigo-100 text-sm text-gray-600 dark:text-gray-300;
+    }
+    .nav-main-submenu button span {
+        @apply text-sm text-gray-700 dark:text-gray-300;
+    }
+
+    /* link di dalam nav */
+    .nav-main-submenu nav a {
+        @apply p-2 rounded hover:bg-indigo-100 text-sm text-gray-600 dark:text-gray-300;
+    }
+}
