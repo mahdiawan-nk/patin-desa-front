@@ -1,15 +1,24 @@
 
 services:
   frontend:
-    build: .
+    build:
+      context: .
+      target: production
     container_name: scm-frontend
-    working_dir: /app
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
+    expose:
+      - "3000"
     environment:
       - NITRO_PORT=3000
       - NITRO_HOST=0.0.0.0
-    command: npm run dev -- --host 0.0.0.0
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: scm-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend

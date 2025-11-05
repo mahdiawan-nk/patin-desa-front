@@ -15,7 +15,7 @@ export function useMonitoringsApi() {
     const token = process.client ? localStorage.getItem('token') : null
 
     async function getListMonitorings() {
-        return await $fetch('/kolam-monitorings', {
+        return await $fetch('/monitorings', {
             baseURL,
             headers: { Authorization: `Bearer ${token}` },
             query: { paginate: false }
@@ -23,7 +23,7 @@ export function useMonitoringsApi() {
     }
     async function createMonitorings(payload: MonitoringsPayload) {
         console.log(payload)
-        return await $fetch('/kolam-monitorings', {
+        return await $fetch('/monitorings', {
             baseURL,
             method: 'POST',
             body: payload,
@@ -34,7 +34,7 @@ export function useMonitoringsApi() {
     }
 
     async function updateMonitorings(id: string, payload: any) {
-        return await $fetch(`/kolam-monitorings/${id}`, {
+        return await $fetch(`/monitorings/${id}`, {
             baseURL,
             method: 'PUT',
             body: payload,
@@ -43,7 +43,7 @@ export function useMonitoringsApi() {
     }
 
     async function deleteMonitorings(id: string) {
-        return await $fetch(`/kolam-monitorings/${id}`, {
+        return await $fetch(`/monitorings/${id}`, {
             baseURL,
             method: 'DELETE',
             headers: { Authorization: `Bearer ${token}` }

@@ -67,6 +67,7 @@ export function useDataTable<T = any>(
 
                 // use Nuxt $fetch dengan headers
                 const url = fetcher
+                console.log('Fetching data from', url, 'with params', qs)
                 const res = await $fetch(url, {
                     params: qs,
                     headers: token ? { Authorization: `Bearer ${token}` } : {}

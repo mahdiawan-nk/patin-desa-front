@@ -19,7 +19,7 @@ import MonitoringEditModal from '~/components/admin/monitoring/EditModal.vue';
 
 const toast = useToast()
 const config = useRuntimeConfig()
-const endpoint = config.public.API_URL + '/kolam-monitorings'
+const endpoint = config.public.API_URL + '/monitorings'
 const showCreateModal = ref(false)
 const showEditModal = ref(false)
 const selectedMonitoring = ref<any | null>(null)

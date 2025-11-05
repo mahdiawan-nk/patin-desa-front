@@ -72,6 +72,7 @@ watch([page, perPage, search, () => filters.value], () => {
 function openEdit(row: any) {
     selectedKolam.value = row.original
     showEditModal.value = true
+    console.log(selectedKolam.value)
 }
 const from = computed(() => {
     if (!meta.value) return 0
@@ -82,7 +83,7 @@ const onKolamCreated = async () => {
     await fetchData()
     toast.add({
         title: 'Berhasil!',
-        description: 'Data user berhasil disimpan.',
+        description: 'Data Kolam berhasil disimpan.',
         color: 'success'
     })
 }
@@ -91,7 +92,7 @@ const onKolamUpdated = async () => {
     await fetchData()
     toast.add({
         title: 'Berhasil!',
-        description: 'Data user berhasil diupdate.',
+        description: 'Data Kolam berhasil diupdate.',
         color: 'success'
     })
 }
@@ -112,7 +113,7 @@ const remove = async () => {
         await fetchData()
         toast.add({
             title: 'Berhasil!',
-            description: `User ${deletingKolam.value.nama_kolam} berhasil dihapus.`,
+            description: `Kolam ${deletingKolam.value.nama_kolam} berhasil dihapus.`,
             color: 'success'
         })
     } catch (err: any) {

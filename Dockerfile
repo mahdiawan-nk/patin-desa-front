@@ -1,18 +1,42 @@
-FROM node:20-alpine
+# -----------------------------
+# Stage Builder (Production)
+# -----------------------------
+FROM node:20-alpine AS builder
+WORKDIR /app
+RUN corepack enable
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
+# -----------------------------
+# Stage Development
+# -----------------------------
+FROM node:20-alpine AS dev
+WORKDIR /app
+COPY package*.json ./
+# Gunakan npm ci agar install cepat dan deterministic
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+
+# -----------------------------
+# Stage Production
+# -----------------------------
+FROM node:20-alpine AS production
 WORKDIR /app
 
-# Salin file package agar caching lebih optimal
-COPY package*.json ./
+# 1️⃣ Copy package.json dan install production dependencies
+# COPY package*.json ./
+# RUN npm ci --production
 
-# Install dependency (kalau belum ada akan error, kita handle via docker-compose run nanti)
-RUN npm install || true
+# 2️⃣ Copy hasil build terakhir dari builder
+COPY --from=builder /app/.output/ ./
 
-# Salin semua kode (kalau project sudah ada)
-COPY . .
 
-# Expose port dev Nuxt
 EXPOSE 3000
 
-# Default command: jalankan dev server
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# 4️⃣ Jalankan server
+CMD ["node", "/app/server/index.mjs"]
+

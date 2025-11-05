@@ -76,10 +76,12 @@ function validate() {
 }
 
 async function onSubmit() {
-    if (!validate() || !props.seeding) return
+    if (!validate() || !props.monitoring) return
+
     try {
         loading.value = true
-        await updateMonitorings(props.seeding.id, form.value)
+        await updateMonitorings(props.monitoring.id, form.value)
+        console.log('Updated monitoring successfully')
         emit('updated')
         close()
     } catch (err: any) {

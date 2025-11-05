@@ -1,0 +1,20 @@
+
+services:
+  frontend:
+    build:
+      context: .
+      target: dev
+    container_name: scm-frontend-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app                       # Source code host → container
+      - ./node_modules:/app/node_modules  # Sinkron host ↔ container
+    environment:
+      - NITRO_PORT=3000
+      - NITRO_HOST=0.0.0.0
+    command: npm run dev -- --host 0.0.0.0
+
+  nginx:
+    ports:
+      - "8080:80"

@@ -80,11 +80,11 @@ function validate() {
 
 
 async function onSubmit() {
-    console.log(form.value)
+    console.log(props.kolam)
     if (!validate() || !props.kolam) return
     try {
         loading.value = true
-        await updateKolam(props.kolam.id, form.value)
+        await updateKolam(props.kolam, form.value)
         emit('updated')
         close()
     } catch (err: any) {
