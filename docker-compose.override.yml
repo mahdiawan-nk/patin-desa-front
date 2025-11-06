@@ -15,6 +15,6 @@ services:
       - NITRO_HOST=0.0.0.0
     command: npm run dev -- --host 0.0.0.0
 
-  nginx:
-    ports:
-      - "8080:80"
+  # nginx:
+  #   ports:
+  #     - "8080:80"
